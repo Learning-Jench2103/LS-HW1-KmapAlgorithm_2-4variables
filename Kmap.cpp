@@ -262,8 +262,33 @@ void Kmap::simplify()
 			}
 		}
 
+		// scan 1x4 //
+		for (int i = 0; i < 4; i++) {
+			count_true = 0;
+			posi.clear();
+			for (int j = 0; j < 4; j++) {
+				if (m.at(i).at(j) != 0) {
+					count_true++;
+					posi.push_back(pair<int, int>(i, j));
+				}
+			}
+			if (posi.size() == 4) term_list.push_back(Implicant(blockName(posi), var));
+		}
 
-		//scan 2x2 //
+		// scan 4x1 //
+		for (int j = 0; j < 4; j++) {
+			count_true = 0;
+			posi.clear();
+			for (int i = 0; i < 4; i++) {
+				if (m.at(i).at(j) != 0) {
+					count_true++;
+					posi.push_back(pair<int, int>(i, j));
+				}
+			}
+			if (posi.size() == 4) term_list.push_back(Implicant(blockName(posi), var));
+		}
+
+		// scan 2x2 //
 		for (int r = 0; r < 4; r++) {
 			for (int c = 0; c < 4; c++) {
 				posi.clear();
@@ -331,6 +356,19 @@ void Kmap::simplify()
 		if (care_value.at(3)) m[1][1] = 1; else if (dontCare_value.at(3)) m[1][1] = -1; else m[1][1] = 0;	// (1,1) = 3
 		if (care_value.at(7)) m[1][2] = 1; else if (dontCare_value.at(7)) m[1][2] = -1; else m[1][2] = 0;	// (1,2) = 7
 		if (care_value.at(5)) m[1][3] = 1; else if (dontCare_value.at(5)) m[1][3] = -1; else m[1][3] = 0;	// (1,3) = 5
+
+		// scan 1x4 //
+		for (int i = 0; i < 2; i++) {
+			count_true = 0;
+			posi.clear();
+			for (int j = 0; j < 4; j++) {
+				if (m.at(i).at(j) != 0) {
+					count_true++;
+					posi.push_back(pair<int, int>(i, j));
+				}
+			}
+			if (posi.size() == 4) term_list.push_back(Implicant(blockName(posi), var));
+		}
 
 		// scan 2x2 //
 		for (int c = 0; c < 4; c++) {
@@ -571,7 +609,15 @@ ostream& operator<<(ostream& output, vector<Implicant> a)
 			output << ", " << *it;
 		}
 		output << endl;
-		output << "simplification of group " << i + 1 << " -> " << a.at(i) << endl;
+
+		output << "simplification of group " << i + 1 << " -> ";
+		if (a.size() == 1 && a.at(0).all()) {
+			output << '1' << endl;
+		}
+		else {
+			output << a.at(i) << endl;
+		}
+
 	}
 
 	output << endl;
@@ -588,10 +634,15 @@ ostream& operator<<(ostream& output, vector<Implicant> a)
 		break;
 	}
 
-	for (int i = 0; i < a.size() - 1; i++) {
-		output << a.at(i) << '+';
+	if (a.size() == 1 && a.at(0).all()) {
+		output << '1';
 	}
-	output << a.at(a.size() - 1);
+	else {
+		for (int i = 0; i < a.size() - 1; i++) {
+			output << a.at(i) << '+';
+		}
+		output << a.at(a.size() - 1);
+	}
 	return output;
 }
 

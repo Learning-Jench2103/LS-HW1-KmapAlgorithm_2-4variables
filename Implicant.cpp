@@ -47,6 +47,11 @@ void Implicant::computeDecimal()
 			// 3 combination of 3 //
 			decimalNum.insert(careNum + pow(2, 3 - dontCare.at(0)) + pow(2, 3 - dontCare.at(1)) + pow(2, 3 - dontCare.at(2)));
 		}
+		else if (dontCare.size() == 4) {
+			for (int i = 0; i < 16; i++) {
+				decimalNum.insert(i);
+			}
+		}
 
 		break;
 
@@ -74,6 +79,11 @@ void Implicant::computeDecimal()
 			// 2 combination of 2 //
 			decimalNum.insert(careNum + pow(2, 2 - dontCare.at(0)) + pow(2, 2 - dontCare.at(1)));
 		}
+		else if (dontCare.size() == 3) {
+			for (int i = 0; i < 8; i++) {
+				decimalNum.insert(i);
+			}
+		}
 
 		break;
 
@@ -94,12 +104,17 @@ void Implicant::computeDecimal()
 			// 1 combination of 1 //
 			decimalNum.insert(careNum + pow(2, 1 - dontCare.at(0)));
 		}
+		else if (dontCare.size() == 2) {
+			for (int i = 0; i < 4; i++) {
+				decimalNum.insert(i);
+			}
+		}
 
 		break;
 	}
 }
 
-Implicant::Implicant(int value, int v):variables(v)
+Implicant::Implicant(int value, int v) :variables(v)
 {
 	switch (variables) {
 	case 4:	// turn the value into 4 bits boolean term
@@ -300,6 +315,16 @@ bool Implicant::operator==(Implicant& a)
 int Implicant::getVariables()
 {
 	return variables;
+}
+
+bool Implicant::all()
+{
+	for (int i = 0; i < 4; i++) {
+		if (boolean[i] != -1) {
+			return false;
+		}
+	}
+	return true;
 }
 
 ostream& operator<<(ostream& output, Implicant& a)

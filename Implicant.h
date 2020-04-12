@@ -21,6 +21,7 @@ public:
 	int care() const;
 	bool operator==(Implicant&);
 	int getVariables();
+	bool all();
 };
 
 #endif

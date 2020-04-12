@@ -57,7 +57,7 @@ bool inputValid(string a) {
 	if (a.length() == 0) {
 		return false;
 	}
-	if (a.find('b', 0) == -1) {
+	if (a.find('b', 0) == -1&& a.find('c', 0) == -1&& a.find('d', 0) == -1) {
 		return false;
 	}
 	for (int i = 0; i < a.length(); i++) {
