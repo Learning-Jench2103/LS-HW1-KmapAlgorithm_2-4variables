@@ -64,8 +64,6 @@ string Kmap::blockName(vector<pair<int, int>> a)
 	}
 
 	return output;
-
-
 }
 
 vector<Implicant> Kmap::bestPrime(const vector<Implicant>& imp, vector<Implicant> chosen, vector<bool> careList, int index)
@@ -128,7 +126,6 @@ vector<Implicant> Kmap::bestPrime(const vector<Implicant>& imp, vector<Implicant
 		chosen.clear();
 		return chosen;
 	}
-
 }
 
 Kmap::Kmap(int v)
@@ -414,7 +411,6 @@ void Kmap::simplify()
 		}
 
 		break;
-
 	case 2:
 		m.resize(2);
 		for (int i = 0; i < 2; i++) {
@@ -449,7 +445,6 @@ void Kmap::simplify()
 
 		break;
 	}
-
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	vector<set<int>> Map(pow(2, var));	// remember the index of terms in vector<Implicant> term_list which contains the number
@@ -464,7 +459,6 @@ void Kmap::simplify()
 		for (set<int>::iterator it = temp_dec.begin(); it != temp_dec.end(); it++) {
 			Map.at(*it).insert(index);
 		}
-
 	}
 
 	// find essential prime implicants //
@@ -493,7 +487,6 @@ void Kmap::simplify()
 				}
 			}
 			put.at(num) = true;
-
 		}
 	}
 
@@ -542,7 +535,6 @@ void Kmap::simplify()
 	for (int i = 0; i < shortestChosen.size(); i++) {
 		prime.push_back(shortestChosen.at(i));
 	}
-
 }
 
 vector<bool> Kmap::getCareValue()
@@ -588,7 +580,6 @@ ostream& operator<<(ostream& output, Kmap& a)
 		output << "-----+---+---+---+---+" << endl;
 
 		break;
-
 	case 3:
 		output << "=========Kmap=========" << endl;
 		output << "  \\AB|               |" << endl;
@@ -599,7 +590,6 @@ ostream& operator<<(ostream& output, Kmap& a)
 		output << "-----+---+---+---+---+" << endl;
 
 		break;
-
 	case 2:
 		output << "=====Kmap=====" << endl;
 		output << "  \\ A|       |" << endl;
@@ -611,7 +601,6 @@ ostream& operator<<(ostream& output, Kmap& a)
 
 		break;
 	}
-
 	return output;
 }
 
@@ -633,7 +622,6 @@ ostream& operator<<(ostream& output, vector<Implicant> a)
 		else {
 			output << a.at(i) << endl;
 		}
-
 	}
 
 	output << endl;
@@ -661,5 +649,3 @@ ostream& operator<<(ostream& output, vector<Implicant> a)
 	}
 	return output;
 }
-
-
