@@ -22,6 +22,7 @@ public:
 	bool operator==(Implicant&);
 	int getVariables();
 	bool all();
+	bool contain(Implicant&);
 };
 
 #endif

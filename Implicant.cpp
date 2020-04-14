@@ -327,6 +327,17 @@ bool Implicant::all()
 	return true;
 }
 
+bool Implicant::contain(Implicant& a)
+{
+	set<int> dec = a.decimalNum;
+	for (set<int>::iterator it = dec.begin(); it != dec.end(); it++) {
+		if (decimalNum.find(*it) == decimalNum.end()) {
+			return false;
+		}
+	}
+	return true;
+}
+
 ostream& operator<<(ostream& output, Implicant& a)
 {
 	for (int i = 0; i < 4; i++) {

@@ -508,6 +508,22 @@ void Kmap::simplify()
 		}
 	}
 
+	set<int> redundant;
+	for (int i = 0; i < term_list.size(); i++) {
+		for (int j = 0; j < term_list.size(); j++) {
+			if (j == i) {
+				continue;
+			}
+			if (term_list.at(i).contain(term_list.at(j))) {
+				redundant.insert(j);
+			}
+		}
+	}
+
+	for (set<int>::reverse_iterator it = redundant.rbegin(); it != redundant.rend(); it++) {
+		term_list.erase(term_list.begin() + *it);
+	}
+
 	// deal with prime but not essential implicants //
 	vector<Implicant> shortestChosen;
 	vector<Implicant> result;
